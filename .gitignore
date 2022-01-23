@@ -1,0 +1,4 @@
+.idea
+__pycache_
+.htaccess
+passenger_wsgi.py
