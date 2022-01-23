@@ -82,11 +82,13 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.username}, 
+        expires_delta=access_token_expires
     )
     conn.execute(users.update().values(token=access_token).where(users.c.id == user.id))
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "role": "admin"}
+    # return {"access_token": form_data.username, "token_type": "bearer"}
 
 
 @login_router.get("/users/me/", response_model=User)

@@ -11,13 +11,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 users: Table = Table(
     'user', meta,
     Column('id', Integer, primary_key=True),
-    Column('ism', String(255)),
-    Column('hashed_password', String(255), ),
-    Column('token', String(255), ),
     Column('username', String(255), unique=True),
-    Column('phone', String(255), unique=True),
-    Column('role', String(255)),
-    Column('seh_id', Integer),
+    Column('hashed_password', String(255)),
+    Column('hodim_id', Integer),
+    Column('token', String(255)),
     Column('disabled', Boolean, default=False),
 )
 
@@ -25,6 +22,7 @@ users: Table = Table(
 class Token(BaseModel):
     access_token: str
     token_type: str
+    role: str
 
 
 class TokenData(BaseModel):
@@ -33,24 +31,19 @@ class TokenData(BaseModel):
 
 class User(BaseModel):
     username: str
-    phone: Optional[str] = None
-    ism: Optional[str] = None
+    hodim_id: int
     disabled: Optional[bool] = None
 
 class NewUser(BaseModel):
     username: str
-    password: str = Query(None, min_length=5, max_length=8)
-    role: str
-    name: str
-    phone: str
-    seh_id: int
-
-
+    password: str 
+    hodim_id: int
 
 class UserInDB(User):
     hashed_password: str
 
-
+class UserStatus(BaseModel):
+    disabled: int
 
 
 
