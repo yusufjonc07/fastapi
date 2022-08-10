@@ -1,5 +1,0 @@
----
-deployement:
-    tasks:
-	-export DEPLOYPATH-/home/onlyupuz/oqsaroy.crud.uz/
-	- /bin/cp * $DEPLOYPATH
